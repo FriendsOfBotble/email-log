@@ -7,6 +7,7 @@ namespace FriendsOfBotble\EmailLog\Http\Controllers;
 use Botble\Base\Events\DeletedContentEvent;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
+use Botble\Base\Supports\Breadcrumb;
 use Exception;
 use FriendsOfBotble\EmailLog\Forms\EmailLogForm;
 use FriendsOfBotble\EmailLog\Models\EmailLog;
@@ -18,6 +19,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EmailLogController extends BaseController
 {
+    protected function breadcrumb(): Breadcrumb
+    {
+        return parent::breadcrumb()
+            ->add(trans('plugins/fob-email-log::email-log.name'), route('email-logs.index'));
+    }
+
     public function index(EmailLogTable $emailLogTable): View|Response
     {
         $this->pageTitle(trans('plugins/fob-email-log::email-log.name'));
